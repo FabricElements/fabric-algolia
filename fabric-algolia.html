@@ -1,0 +1,41 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="./algolia-script.html">
+
+<dom-module id="fabric-algolia">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+  </template>
+
+  <script>
+    /**
+     * `fabric-algolia`
+     * Algolia search component
+     *
+     * @license Copyright (c) 2017 FabricElements. All rights reserved.
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class FabricAlgolia extends Polymer.Element {
+      /**
+       * @return {string}
+       */
+      static get is() {
+        return 'fabric-algolia';
+      }
+
+      /**
+       * @return {object}
+       */
+      static get properties() {
+        return {};
+      }
+    }
+
+    window.customElements.define(FabricAlgolia.is, FabricAlgolia);
+  </script>
+</dom-module>
