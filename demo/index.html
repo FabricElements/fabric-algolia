@@ -10,10 +10,20 @@
 
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
   <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../polymer/lib/elements/dom-bind.html">
+  <link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
+  <link rel="import" href="../../paper-input/paper-input.html">
+  <link rel="import" href="../../paper-card/paper-card.html">
   <link rel="import" href="../fabric-algolia.html">
 
   <custom-style>
     <style is="custom-style" include="demo-pages-shared-styles">
+      paper-card {
+        margin: 0 auto 1rem auto;
+        display: block;
+        width: 300px;
+        max-width: 100%;
+      }
     </style>
   </custom-style>
 </head>
@@ -22,7 +32,28 @@
   <h3>Basic fabric-algolia demo</h3>
   <demo-snippet>
     <template>
-      <fabric-algolia></fabric-algolia>
+      <dom-bind>
+        <template>
+          <paper-input label="Search a movie" value="{{query}}"></paper-input>
+          <fabric-algolia application-id="latency"
+                          api-key="6be0576ff61c053d5f9a3225e2a90f76"
+                          index="movies"
+                          query="[[query]]"
+                          response="{{response}}"></fabric-algolia>
+
+          <dom-repeat items="[[response.hits]]">
+            <template>
+              <paper-card image="[[item.image]]">
+                <div class="card-content">
+                  <h4>[[item.title]]</h4>
+                  <h5>[[item.year]]</h5>
+                  <p>[[item.genre]]</p>
+                </div>
+              </paper-card>
+            </template>
+          </dom-repeat>
+        </template>
+      </dom-bind>
     </template>
   </demo-snippet>
 </div>
