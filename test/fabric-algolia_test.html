@@ -12,21 +12,87 @@
   <link rel="import" href="../fabric-algolia.html">
 </head>
 <body>
-
-<test-fixture id="BasicTestFixture">
-  <template>
-    <fabric-algolia></fabric-algolia>
-  </template>
-</test-fixture>
-
-<test-fixture id="ChangedPropertyTestFixture">
-  <template>
-    <fabric-algolia prop1="new-prop1"></fabric-algolia>
-  </template>
-</test-fixture>
+  <test-fixture id="applicationId">
+    <template>
+      <fabric-algolia api-key="6be0576ff61c053d5f9a3225e2a90f76"
+                      query="[[query]]"
+                      index="movies"
+                      response="{{response}}"
+      ></fabric-algolia>
+    </template>
+  </test-fixture>
+  <test-fixture id="apiKey">
+    <template>
+      <fabric-algolia application-id="latency"
+                      query="[[query]]"
+                      index="movies"
+                      response="{{response}}"
+      ></fabric-algolia>
+    </template>
+  </test-fixture>
+  <test-fixture id="index">
+    <template>
+      <fabric-algolia application-id="latency"
+                      api-key="6be0576ff61c053d5f9a3225e2a90f76"
+                      query="[[query]]"
+                      response="{{response}}"
+      ></fabric-algolia>
+    </template>
+  </test-fixture>
+  <test-fixture id="basicResponse">
+    <template>
+      <fabric-algolia application-id="latency"
+                      api-key="6be0576ff61c053d5f9a3225e2a90f76"
+                      query="superman"
+                      index="movies"
+                      response="{{response}}"
+      ></fabric-algolia>
+    </template>
+  </test-fixture>
 
 <script>
+  suite('Basic behaviour', () => {
+    let applicationId;
+    let apiKey;
+    let index;
 
+    setup(() => {
+      applicationId = fixture('applicationId');
+      apiKey = fixture('apiKey');
+      index = fixture('index');
+    });
+
+    test('Should return error if the applicationId is not set', (done) => {
+      expect(applicationId.error.message)
+      .to.equal('Something is missing: applicationId, ');
+      done();
+    });
+
+    test('Should return error if the apiKey is not set', (done) => {
+      expect(apiKey.error.message).to.equal('Something is missing: apiKey, ');
+      done();
+    });
+
+    test('Should return error if the index is not set', (done) => {
+      expect(index.error.message).to.equal('Something is missing: index');
+      done();
+    });
+  });
+
+  suite('Basic search', () => {
+    let basicResponse;
+
+    setup(() => {
+      basicResponse = fixture('basicResponse');
+    });
+
+    test('Should populate response attribute with hits from algolia', (done) => {
+      window.setTimeout(() => {
+        expect(basicResponse.response.hits).to.exist;
+        done();
+      }, 1000);
+    });
+  });
 </script>
 
 </body>
