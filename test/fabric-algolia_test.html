@@ -6,10 +6,10 @@
 
   <title>fabric-algolia test</title>
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../wct-browser-legacy/browser.js"></script>
 
-  <link rel="import" href="../fabric-algolia.html">
+  <script type="module" src="../fabric-algolia.js"></script>
 </head>
 <body>
   <test-fixture id="applicationId">
@@ -50,49 +50,50 @@
     </template>
   </test-fixture>
 
-<script>
-  suite('Basic behaviour', () => {
-    let applicationId;
-    let apiKey;
-    let index;
+<script type="module">
+import '../fabric-algolia.js';
+suite('Basic behaviour', () => {
+  let applicationId;
+  let apiKey;
+  let index;
 
-    setup(() => {
-      applicationId = fixture('applicationId');
-      apiKey = fixture('apiKey');
-      index = fixture('index');
-    });
-
-    test('Should return error if the applicationId is not set', (done) => {
-      expect(applicationId.error.message)
-      .to.equal('Something is missing: applicationId, ');
-      done();
-    });
-
-    test('Should return error if the apiKey is not set', (done) => {
-      expect(apiKey.error.message).to.equal('Something is missing: apiKey, ');
-      done();
-    });
-
-    test('Should return error if the index is not set', (done) => {
-      expect(index.error.message).to.equal('Something is missing: index');
-      done();
-    });
+  setup(() => {
+    applicationId = fixture('applicationId');
+    apiKey = fixture('apiKey');
+    index = fixture('index');
   });
 
-  suite('Basic search', () => {
-    let basicResponse;
-
-    setup(() => {
-      basicResponse = fixture('basicResponse');
-    });
-
-    test('Should populate response attribute with hits from algolia', (done) => {
-      window.setTimeout(() => {
-        expect(basicResponse.response.hits).to.exist;
-        done();
-      }, 1000);
-    });
+  test('Should return error if the applicationId is not set', (done) => {
+    expect(applicationId.error.message)
+    .to.equal('Something is missing: applicationId, ');
+    done();
   });
+
+  test('Should return error if the apiKey is not set', (done) => {
+    expect(apiKey.error.message).to.equal('Something is missing: apiKey, ');
+    done();
+  });
+
+  test('Should return error if the index is not set', (done) => {
+    expect(index.error.message).to.equal('Something is missing: index');
+    done();
+  });
+});
+
+suite('Basic search', () => {
+  let basicResponse;
+
+  setup(() => {
+    basicResponse = fixture('basicResponse');
+  });
+
+  test('Should populate response attribute with hits from algolia', (done) => {
+    window.setTimeout(() => {
+      expect(basicResponse.response.hits).to.exist;
+      done();
+    }, 1000);
+  });
+});
 </script>
 
 </body>
