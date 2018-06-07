@@ -1,5 +1,5 @@
 {
-  "name": "@FabricElements/fabric-algolia",
+  "name": "@fabricelements/fabric-algolia",
   "description": "Algolia search component",
   "main": "fabric-algolia.js",
   "author": "The FabricElements Authors",
