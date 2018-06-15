@@ -2,7 +2,7 @@
  * @license
  * Copyright FabricElements. All Rights Reserved.
  */
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
 import 'algoliasearch/dist/algoliasearch.min.js';
 
 /**

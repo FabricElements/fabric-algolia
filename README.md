@@ -3,14 +3,14 @@
 
 ## \<fabric-algolia\>
 
-`fabric-algolia` is a [Polymer 2](http://polymer-project.org) Algolia search component. 
+`fabric-algolia` is a [Polymer 3](http://polymer-project.org) Algolia search component. 
 
 ## Installation
 
-Install `fabric-algolia` with Bower
+Install `fabric-algolia` with npm
 
 ```shell
-$ bower install --save FabricElements/fabric-algolia
+$ npm install FabricElements/fabric-algolia --save
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ $ bower install --save FabricElements/fabric-algolia
 Import it into the `<head>` of your page
 
 ```html
-<link rel="import" href="bower_components/fabric-algolia/fabric-algolia.html">
+<script type="module" src="node_modules/@fabricelements/fabric-algolia/fabric-algolia.js"></script>
 ```
 
 ### Example: basic usage
@@ -28,8 +28,7 @@ Import it into the `<head>` of your page
                 api-key=""
                 index=""
                 query=""
-                response=""
-                ></fabric-algolia>
+                response=""></fabric-algolia>
 ```
 
 * `application-id` (string) - Your Algolia Application ID.

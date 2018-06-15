@@ -3,7 +3,7 @@
   "description": "Algolia search component",
   "main": "fabric-algolia.js",
   "author": "The FabricElements Authors",
-  "version": "0.0.1",
+  "version": "3.0.0",
   "license": "BSD-3-Clause",
   "devDependencies": {
     "eslint": "^4.5.0",
