@@ -6,10 +6,12 @@
 
   <title>fabric-algolia test</title>
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../node_modules/wct-browser-legacy/browser.js"></script>
 
-  <link rel="import" href="../fabric-algolia.html">
+  <script type="module">
+    import '../fabric-algolia.js';
+  </script>
 </head>
 <body>
   <test-fixture id="applicationId">
@@ -94,6 +96,5 @@
     });
   });
 </script>
-
 </body>
 </html>
