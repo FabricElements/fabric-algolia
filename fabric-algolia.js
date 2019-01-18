@@ -16,6 +16,21 @@ import 'algoliasearch/dist/algoliasearch.min.js';
  */
 class FabricAlgolia extends LitElement {
   /**
+   * Constructor
+   */
+  constructor() {
+    super();
+    this.query = null;
+    this.applicationId = null;
+    this.apiKey = null;
+    this.index = null;
+    this.settings = null;
+    this.response = {};
+    this.hits = [];
+    this.error = null;
+  }
+
+  /**
    * @return {object}
    */
   static get properties() {
@@ -58,14 +73,12 @@ class FabricAlgolia extends LitElement {
       hits: {
         type: Array,
         reflect: true,
-        notify: true,
       },
       /**
        * Error
        */
       error: {
         type: Object,
-        notify: true,
         reflect: true,
       },
       /**
@@ -84,21 +97,6 @@ class FabricAlgolia extends LitElement {
   }
 
   /**
-   * Constructor
-   */
-  constructor() {
-    super();
-    this.query = null;
-    this.applicationId = null;
-    this.apiKey = null;
-    this.index = null;
-    this.settings = null;
-    this.response = {};
-    this.hits = [];
-    this.error = null;
-  }
-
-  /**
    * Update event
    * @param {array} changedProperties
    */
@@ -107,6 +105,15 @@ class FabricAlgolia extends LitElement {
       switch (propName) {
         case 'query':
           this._queryObserver();
+          break;
+        case 'hits':
+          this._notify('hits-changed');
+          break;
+        case 'error':
+          this._notify('error-changed');
+          break;
+        case 'response':
+          this._notify('response-changed');
           break;
       }
     });
@@ -157,8 +164,23 @@ class FabricAlgolia extends LitElement {
       if (err) {
         this.error = err;
       }
+      this.response = content;
       this.hits = content.hasOwnProperty('hits') ? content.hits : [];
     });
+  }
+
+  /**
+   * Trigger event
+   *
+   * @param {string} name
+   * @private
+   */
+  _notify(name) {
+    const event = new CustomEvent(name, {
+      bubbles: true,
+      compose: true,
+    });
+    this.dispatchEvent(event);
   }
 }
 

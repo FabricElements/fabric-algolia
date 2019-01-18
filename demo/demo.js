@@ -63,11 +63,11 @@ class DemoElement extends LitElement {
         application-id="Y00JC9A2VD"
         api-key="62ef0fbbf1e47434cd0e30e2da63ebd3"
         index="demo"
-        query="${this.query}"
+        .query="${this.query}"
         .hits="${this.hits}"
       >
       </fabric-algolia>
-      <input .value="${this.query}" aria-label="type here" type="text" />
+      <paper-input .value="${this.query}" label="Type here"></paper-input>
 
       <h1>query = ${this.query}</h1>
       <h1>hits = ${this.hits.length}</h1>
