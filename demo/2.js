@@ -37,11 +37,11 @@ class DemoElement extends PolymerElement {
         query="[[query]]"
         response="{{response}}"
         hits="{{hits}}"
-        hits-changes="_changes"
-        .resp="{{resp}}"
+        on-hits-changed="_changes"
       ></fabric-algolia>
-      <h1>resp = [[resp]]</h1>
+      <h1>resp = [[hits.size]]</h1>
       <template is="dom-repeat" items="[[hits]]">
+        <h1>hello</h1>
         <paper-card image="[[item.image]]">
           <div class="card-content">
             <h4>[[item.title]]</h4>
@@ -61,32 +61,29 @@ class DemoElement extends PolymerElement {
       query: String,
       response: {
         type: Object,
-        // observer: 'responseObserver',
         value: null,
       },
       hits: {
-        // type: Array,
+        type: Array,
         observer: 'responseObserver',
-        value: [],
-      },
-      resp: {
-        type: String,
-        value: 'jumm',
       },
     };
   }
 
+  /**
+   * Response observer
+   * @param response
+   */
   responseObserver(response) {
     console.log('response changed');
     if (response) {
-      console.log('response');
       console.log(response);
-      console.log('///// response');
     }
   }
+
   _changes(event) {
     console.log(event);
   }
 }
 
-window.customElements.define('demo-element', DemoElement);
+customElements.define('demo-element', DemoElement);

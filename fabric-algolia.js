@@ -16,22 +16,6 @@ import 'algoliasearch/dist/algoliasearch.min.js';
  */
 class FabricAlgolia extends LitElement {
   /**
-   * Constructor
-   */
-  constructor() {
-    super();
-    this.query = null;
-    this.applicationId = null;
-    this.apiKey = null;
-    this.index = null;
-    this.settings = null;
-    this.response = {};
-    this.hits = [];
-    this.error = null;
-    this.resp = '';
-  }
-
-  /**
    * @return {object}
    */
   static get properties() {
@@ -70,13 +54,11 @@ class FabricAlgolia extends LitElement {
       response: {
         type: Object,
         reflect: true,
-        // attribute: 'response',
-        // attribute: true,
       },
       hits: {
         type: Array,
         reflect: true,
-        attribute: 'hits',
+        notify: true,
       },
       /**
        * Error
@@ -98,24 +80,22 @@ class FabricAlgolia extends LitElement {
           // && newVal.length > 0;
         },
       },
-      resp: {
-        type: String,
-        attribute: 'resp',
-        reflect: true,
-        notify: true,
-      },
     };
   }
 
   /**
-   * Attribute changed event
-   *
-   * @param {string} name
-   * @param {string} oldVal
-   * @param {string} newVal
+   * Constructor
    */
-  attributeChangedCallback(name, oldVal, newVal) {
-    super.attributeChangedCallback(name, oldVal, newVal);
+  constructor() {
+    super();
+    this.query = null;
+    this.applicationId = null;
+    this.apiKey = null;
+    this.index = null;
+    this.settings = null;
+    this.response = {};
+    this.hits = [];
+    this.error = null;
   }
 
   /**
@@ -139,7 +119,7 @@ class FabricAlgolia extends LitElement {
    */
   _queryObserver() {
     this.error = null;
-    this.response = null;
+    this.hits = [];
     const query = this.query;
     if (!query) return;
 

@@ -26,9 +26,9 @@
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^2.2.3",
     "@polymer/gen-typescript-declarations": "^1.2.2",
-    "@polymer/polymer": "^3.1.0",
+    "@polymer/polymer": "github:Polymer/polymer",
     "algoliasearch": "^3.32.0",
-    "lit-element": "^2.0.0-rc.2"
+    "lit-element": "^v2.0.0-rc-dev.23e305d"
   },
   "resolutions": {
     "inherits": "2.0.3",
