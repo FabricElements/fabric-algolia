@@ -9,12 +9,8 @@
   <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
   <script type="module">
     import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-    import '@polymer/iron-demo-helpers/demo-snippet';
-    import '@polymer/polymer/lib/elements/dom-bind.js';
-    import '@polymer/polymer/lib/elements/dom-repeat.js';
-    import '@polymer/paper-input/paper-input.js';
-    import '@polymer/paper-card/paper-card.js';</script>
-  <script type="module" src="../fabric-algolia.js"></script>
+    import '@polymer/iron-demo-helpers/demo-snippet';</script>
+  <script type="module" src="./demo.js"></script>
 
 
 <custom-style>
@@ -34,24 +30,7 @@
   <h3>Basic fabric-algolia demo</h3>
   <demo-snippet>
     <template>
-      <dom-bind>
-        <template>
-          <paper-input label="Search a movie" value="{{query}}"></paper-input>
-          <fabric-algolia application-id="latency" api-key="6be0576ff61c053d5f9a3225e2a90f76" index="movies" query="[[query]]" response="{{response}}"></fabric-algolia>
-
-          <dom-repeat items="[[response.hits]]">
-            <template>
-              <paper-card image="[[item.image]]">
-                <div class="card-content">
-                  <h4>[[item.title]]</h4>
-                  <h5>[[item.year]]</h5>
-                  <p>[[item.genre]]</p>
-                </div>
-              </paper-card>
-            </template>
-          </dom-repeat>
-        </template>
-      </dom-bind>
+      <demo-element></demo-element>
     </template>
   </demo-snippet>
 </div>

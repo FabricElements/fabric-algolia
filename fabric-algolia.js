@@ -2,7 +2,7 @@
  * @license
  * Copyright FabricElements. All Rights Reserved.
  */
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {LitElement} from 'lit-element';
 import 'algoliasearch/dist/algoliasearch.min.js';
 
 /**
@@ -14,12 +14,21 @@ import 'algoliasearch/dist/algoliasearch.min.js';
  * @polymer
  * @demo demo/index.html
  */
-class FabricAlgolia extends PolymerElement {
+class FabricAlgolia extends LitElement {
   /**
-   * @return {string}
+   * Constructor
    */
-  static get is() {
-    return 'fabric-algolia';
+  constructor() {
+    super();
+    this.query = null;
+    this.applicationId = null;
+    this.apiKey = null;
+    this.index = null;
+    this.settings = null;
+    this.response = {};
+    this.hits = [];
+    this.error = null;
+    this.resp = '';
   }
 
   /**
@@ -32,71 +41,106 @@ class FabricAlgolia extends PolymerElement {
        */
       applicationId: {
         type: String,
-        value: null,
+        attribute: 'application-id',
       },
       /**
        * Algolia Api Key
        */
       apiKey: {
         type: String,
-        value: null,
+        attribute: 'api-key',
       },
       /**
        * Index
        */
       index: {
         type: String,
-        value: null,
+        attribute: 'index',
       },
       /**
        * Settings
        */
       settings: {
         type: Object,
-        value: null,
+        attribute: 'settings',
       },
       /**
        * Response
        */
       response: {
         type: Object,
-        value: null,
-        notify: true,
-        reflectToAttribute: true,
-        readOnly: true,
+        reflect: true,
+        // attribute: 'response',
+        // attribute: true,
+      },
+      hits: {
+        type: Array,
+        reflect: true,
+        attribute: 'hits',
       },
       /**
        * Error
        */
       error: {
         type: Object,
-        value: null,
         notify: true,
-        reflectToAttribute: true,
-        readOnly: true,
+        reflect: true,
       },
       /**
        * Query
        */
       query: {
         type: String,
-        value: null,
-        observer: '_queryObserver',
+        attribute: 'query',
+        hasChanged(newVal, oldVal) {
+          return newVal !== oldVal
+            && typeof newVal === 'string';
+          // && newVal.length > 0;
+        },
+      },
+      resp: {
+        type: String,
+        attribute: 'resp',
+        reflect: true,
+        notify: true,
       },
     };
   }
 
   /**
+   * Attribute changed event
+   *
+   * @param {string} name
+   * @param {string} oldVal
+   * @param {string} newVal
+   */
+  attributeChangedCallback(name, oldVal, newVal) {
+    super.attributeChangedCallback(name, oldVal, newVal);
+  }
+
+  /**
+   * Update event
+   * @param {array} changedProperties
+   */
+  updated(changedProperties) {
+    changedProperties.forEach((oldValue, propName) => {
+      switch (propName) {
+        case 'query':
+          this._queryObserver();
+          break;
+      }
+    });
+  }
+
+  /**
    * Send query to Algolia & return results.
    *
-   * @param {string} query
-   * @return {*}
    * @private
    */
-  _queryObserver(query) {
-    this._setError(null);
-    this._setResponse(null);
-
+  _queryObserver() {
+    this.error = null;
+    this.response = null;
+    const query = this.query;
     if (!query) return;
 
     /**
@@ -116,7 +160,8 @@ class FabricAlgolia extends PolymerElement {
       if (!applicationID) error.message += 'applicationId, ';
       if (!apiKey) error.message += 'apiKey, ';
       if (!index) error.message += 'index';
-      return this._setError(error);
+      this.error = error;
+      return;
     }
 
     /**
@@ -130,11 +175,11 @@ class FabricAlgolia extends PolymerElement {
 
     indexRef.search(query, (err, content) => {
       if (err) {
-        return this._setError(content);
+        this.error = err;
       }
-      this._setResponse(content);
+      this.hits = content.hasOwnProperty('hits') ? content.hits : [];
     });
   }
 }
 
-window.customElements.define(FabricAlgolia.is, FabricAlgolia);
+customElements.define('fabric-algolia', FabricAlgolia);
