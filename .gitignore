@@ -58,3 +58,11 @@ bower_components
 
 ## Directory-based project format:
 .idea/
+
+############################################
+## Build files
+############################################
+# *.js.map
+# *.d.ts
+*-css.ts
+!*/custom_types/**

@@ -6,29 +6,34 @@
   "version": "3.0.0",
   "license": "BSD-3-Clause",
   "flat": true,
+  "scripts": {
+    "start": "gulp serve",
+    "lint": "tslint --project tsconfig.json",
+    "lint-fix": "tslint -c tslint.json --project .  --project -t codeFrame --fix",
+    "test": "polymer test",
+    "test:integration": "polymer build # test that psk builds without error with the CLI"
+  },
+  "dependencies": {
+    "@polymer/gen-typescript-declarations": "^1.6.1",
+    "@polymer/polymer": "^3.1.0",
+    "@webcomponents/webcomponentsjs": "^2.2.3",
+    "algoliasearch": "^3.32.0",
+    "lit-element": "^v2.0.0-rc.3"
+  },
   "devDependencies": {
-    "eslint": "^4.5.0",
+    "eslint": "^4.12.1",
     "eslint-config-google": "^0.9.1",
-    "eslint-plugin-html": "^3.2.1",
+    "eslint-plugin-html": "^3.2.2",
+    "eslint-plugin-prettier": "^3.0.0",
     "@polymer/iron-demo-helpers": "^3.0.0",
     "wct-browser-legacy": "^1.0.2",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "@polymer/paper-input": "^3.0.0",
-    "@polymer/paper-card": "^3.0.0"
-  },
-  "scripts": {
-    "lint": "npm run lint:javascript && polymer lint",
-    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
-    "test": "polymer test",
-    "test:integration": "polymer build # test that psk builds without error with the CLI",
-    "update-types": "gen-typescript-declarations --deleteExisting --outDir ."
-  },
-  "dependencies": {
-    "@webcomponents/webcomponentsjs": "^2.2.3",
-    "@polymer/gen-typescript-declarations": "^1.2.2",
-    "@polymer/polymer": "^3.1.0",
-    "algoliasearch": "^3.32.0",
-    "lit-element": "^v2.0.0-rc-dev.23e305d"
+    "@polymer/paper-card": "^3.0.0",
+    "pwa-helpers": "^0.9.0",
+    "tslint": "^5.9.1",
+    "tslint-eslint-rules": "4.1.1",
+    "@types/algoliasearch": "^3.30.1"
   },
   "resolutions": {
     "inherits": "2.0.3",

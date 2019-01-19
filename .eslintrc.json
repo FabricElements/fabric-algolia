@@ -8,19 +8,22 @@
     "sourceType": "module"
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "es6": true,
+    "mocha": true,
+    "jasmine": true
   },
   "plugins": [
-    "html"
+    "html",
+    "prettier"
   ],
   "rules": {
     "brace-style": "off",
     "new-cap": [
       "error",
       {
-        "capIsNewExceptions": [
-          "Polymer"
-        ]
+        "newIsCap": true,
+        "properties": false
       }
     ],
     "no-var": "error",
@@ -43,16 +46,35 @@
         "maxBOF": 0,
         "maxEOF": 1
       }
+    ],
+    "max-len": [
+      "error",
+      {
+        "ignoreTemplateLiterals": true,
+        "ignoreUrls": true,
+        "ignorePattern": "^import\\s.+\\sfrom\\s.+;$"
+      }
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "always",
+          "arrays": "ignore",
+          "functions": "ignore",
+          "typeLiterals": "ignore"
+        }
+      }
     ]
   },
   "globals": {
-    "Polymer": true,
-    "suite": true,
-    "test": true,
+    "a11ySuite": true,
+    "Fabric": true,
+    "firebase": true,
     "fixture": true,
-    "expect": true,
-    "setup": true,
+    "flush": true,
     "MockInteractions": true,
+    "Polymer": true,
     "WCT": true
   }
 }
