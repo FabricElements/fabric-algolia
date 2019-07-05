@@ -14,10 +14,10 @@
     "jasmine": true
   },
   "plugins": [
-    "html",
-    "prettier"
+    "html"
   ],
   "rules": {
+    "prefer-const": "off",
     "brace-style": "off",
     "new-cap": [
       "error",
@@ -55,17 +55,16 @@
         "ignorePattern": "^import\\s.+\\sfrom\\s.+;$"
       }
     ],
-    "trailing-comma": [
-      true,
+    "comma-dangle": [
+      1,
       {
-        "multiline": {
-          "objects": "always",
-          "arrays": "ignore",
-          "functions": "ignore",
-          "typeLiterals": "ignore"
-        }
+        "objects": "always-multiline",
+        "arrays": "never",
+        "functions": "never",
+        "imports": "never"
       }
-    ]
+    ],
+    "no-prototype-builtins": "off"
   },
   "globals": {
     "a11ySuite": true,

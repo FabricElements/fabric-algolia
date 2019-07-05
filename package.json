@@ -5,7 +5,6 @@
   "author": "The FabricElements Authors",
   "version": "0.0.1",
   "license": "BSD-3-Clause",
-  "flat": true,
   "scripts": {
     "start": "polymer serve",
     "lint": "tslint --project tsconfig.json",
@@ -14,26 +13,24 @@
     "test:integration": "polymer build # test that psk builds without error with the CLI"
   },
   "dependencies": {
-    "@polymer/gen-typescript-declarations": "^1.6.1",
-    "@polymer/polymer": "^3.1.0",
-    "@webcomponents/webcomponentsjs": "^2.2.3",
-    "algoliasearch": "^3.32.0",
-    "lit-element": "^2.0.0-rc.5"
+    "@polymer/gen-typescript-declarations": "^1.6.2",
+    "@polymer/polymer": "^3.3.0",
+    "@webcomponents/webcomponentsjs": "^2.2.10",
+    "algoliasearch": "^3.33.0",
+    "lit-element": "^2.2.0"
   },
   "devDependencies": {
-    "eslint": "^4.12.1",
-    "eslint-config-google": "^0.9.1",
-    "eslint-plugin-html": "^3.2.2",
-    "eslint-plugin-prettier": "^3.0.0",
-    "@polymer/iron-demo-helpers": "^3.0.0",
+    "eslint": "^6.0.1",
+    "eslint-config-google": "^0.13.0",
+    "eslint-plugin-html": "^6.0.0",
+    "@polymer/iron-demo-helpers": "^3.1.0",
     "wct-browser-legacy": "^1.0.2",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
-    "@polymer/paper-input": "^3.0.0",
-    "@polymer/paper-card": "^3.0.0",
-    "pwa-helpers": "^0.9.0",
-    "tslint": "^5.9.1",
-    "tslint-eslint-rules": "4.1.1",
-    "@types/algoliasearch": "^3.30.1"
+    "@polymer/paper-input": "^3.0.2",
+    "@polymer/paper-card": "^3.0.1",
+    "pwa-helpers": "^0.9.1",
+    "tslint": "^5.18.0",
+    "tslint-eslint-rules": "5.4.0",
+    "@types/algoliasearch": "^3.30.12"
   },
   "resolutions": {
     "inherits": "2.0.3",
