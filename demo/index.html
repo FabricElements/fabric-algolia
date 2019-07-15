@@ -13,11 +13,13 @@
     import '@polymer/polymer/lib/elements/dom-bind.js';
     import '@polymer/polymer/lib/elements/dom-repeat.js';
     import '@polymer/paper-input/paper-input.js';
-    import '@polymer/paper-card/paper-card.js';</script>
+    import '@polymer/paper-card/paper-card.js';
+    import '../fabric-algolia.js';
+  </script>
   <script type="module" src="../fabric-algolia.js"></script>
 
 
-<custom-style>
+  <custom-style>
     <style is="custom-style" include="demo-pages-shared-styles">
       paper-card {
         margin: 0 auto 1rem auto;
@@ -36,8 +38,10 @@
     <template>
       <dom-bind>
         <template>
+          <h1>[[query]]</h1>
           <paper-input label="Search a movie" value="{{query}}"></paper-input>
-          <fabric-algolia application-id="latency" api-key="6be0576ff61c053d5f9a3225e2a90f76" index="movies" query="[[query]]" response="{{response}}"></fabric-algolia>
+          <fabric-algolia application-id="latency" api-key="6be0576ff61c053d5f9a3225e2a90f76" index="movies"
+                          query="[[query]]" response="{{response}}"></fabric-algolia>
 
           <dom-repeat items="[[response.hits]]">
             <template>

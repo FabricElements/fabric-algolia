@@ -1,103 +1,55 @@
-/**
- * @license
- * Copyright FabricElements. All Rights Reserved.
- */
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {LitElement} from 'lit-element';
 import 'algoliasearch/dist/algoliasearch.min.js';
 
 /**
- * `fabric-algolia`
- * Algolia search component
- *
- * @license Copyright (c) 2017 FabricElements. All rights reserved.
- * @customElement
- * @polymer
- * @demo demo/index.html
+ * fabric-algolia base component
  */
-class FabricAlgolia extends PolymerElement {
+class FabricAlgolia extends LitElement {
   /**
-   * @return {string}
-   */
-  static get is() {
-    return 'fabric-algolia';
-  }
-
-  /**
+   * properties
    * @return {object}
    */
   static get properties() {
     return {
-      /**
-       * Algolia Application ID
-       */
-      applicationId: {
-        type: String,
-        value: null,
-      },
-      /**
-       * Algolia Api Key
-       */
-      apiKey: {
-        type: String,
-        value: null,
-      },
-      /**
-       * Index
-       */
-      index: {
-        type: String,
-        value: null,
-      },
-      /**
-       * Settings
-       */
-      settings: {
-        type: Object,
-        value: null,
-      },
-      /**
-       * Response
-       */
-      response: {
-        type: Object,
-        value: null,
-        notify: true,
-        reflectToAttribute: true,
-        readOnly: true,
-      },
-      /**
-       * Error
-       */
-      error: {
-        type: Object,
-        value: null,
-        notify: true,
-        reflectToAttribute: true,
-        readOnly: true,
-      },
-      /**
-       * Query
-       */
-      query: {
-        type: String,
-        value: null,
-        observer: '_queryObserver',
-      },
+      applicationId: {type: String, attribute: 'application-id'},
+      apiKey: {type: String, attribute: 'api-key'},
+      index: {type: String, attribute: 'index'},
+      settings: {type: Object, attribute: 'settings'},
+      response: {type: Object, attribute: 'response', reflect: true},
+      error: {type: Object, attribute: 'error', reflect: true},
+      query: {type: String, attribute: 'query'},
     };
+  }
+
+  /**
+   * values
+   */
+  constructor() {
+    super();
+    this.applicationId = null;
+    this.apiKey = null;
+    this.index = null;
+    this.settings = null;
+    this.response = null;
+    this.error = null;
+    this.query = null;
   }
 
   /**
    * Send query to Algolia & return results.
    *
-   * @param {string} query
    * @return {*}
    * @private
    */
-  _queryObserver(query) {
-    this._setError(null);
-    this._setResponse(null);
-
+  _queryObserver() {
+    this.error = null;
+    this.response = null;
+    const query = this.query;
+    console.log('query', query);
     if (!query) return;
+    if (query.length < 3) {
+      return;
+    }
 
     /**
      * Reference basic properties
@@ -116,25 +68,60 @@ class FabricAlgolia extends PolymerElement {
       if (!applicationID) error.message += 'applicationId, ';
       if (!apiKey) error.message += 'apiKey, ';
       if (!index) error.message += 'index';
-      return this._setError(error);
+      return this.error = error;
     }
 
     /**
      * Set up algolia search
      */
-      // eslint-disable-next-line no-undef
-    const client = algoliasearch(applicationID, apiKey);
+    // eslint-disable-next-line no-undef
+    const client = window.algoliasearch(applicationID, apiKey);
     const indexRef = client.initIndex(index);
     // Define search settings
     if (settings) indexRef.setSettings(settings);
 
     indexRef.search(query, (err, content) => {
       if (err) {
-        return this._setError(content);
+        return this.error = error;
       }
-      this._setResponse(content);
+      console.log(content);
+      this.response = content;
     });
+  }
+
+  /**
+   * Update event
+   * @param {PropertyValues} changedProperties
+   */
+  updated(changedProperties) {
+    // @ts-ignore
+    changedProperties.forEach((oldValue, propName) => {
+      switch (propName) {
+        case 'query':
+          this._queryObserver();
+          break;
+        case 'hits':
+        case 'error':
+        case 'response':
+          this._notify(`${propName}-changed`);
+          break;
+      }
+    });
+  }
+
+  /**
+   * Trigger event
+   *
+   * @param {string} name
+   * @private
+   */
+  _notify(name) {
+    const event = new CustomEvent(name, {
+      bubbles: true,
+      composed: true,
+    });
+    this.dispatchEvent(event);
   }
 }
 
-window.customElements.define(FabricAlgolia.is, FabricAlgolia);
+customElements.define('fabric-algolia', FabricAlgolia);
